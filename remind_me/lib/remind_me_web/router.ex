@@ -18,6 +18,13 @@ defmodule RemindMeWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    live "/reminder", ReminderLive.Index, :index
+    live "/reminder/new", ReminderLive.Index, :new
+    live "/reminder/:id/edit", ReminderLive.Index, :edit
+
+    live "/reminder/:id", ReminderLive.Show, :show
+    live "/reminder/:id/show/edit", ReminderLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
