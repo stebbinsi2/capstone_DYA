@@ -18,10 +18,12 @@ defmodule RemindMeWeb.Router do
   end
 
   scope "/", RemindMeWeb do
-    pipe_through :browser
+    pipe_through [:browser, :require_authenticated_user]
 
     get "/", PageController, :home
-
+    live_session :protected_reminder, on_mount:[
+  {RemindMeWeb.UserAuth, :ensure_authenticated}
+] do
     live "/reminder", ReminderLive.Index, :index
     live "/reminder/new", ReminderLive.Index, :new
     live "/reminder/:id/edit", ReminderLive.Index, :edit
@@ -29,6 +31,19 @@ defmodule RemindMeWeb.Router do
     live "/reminder/:id", ReminderLive.Show, :show
     live "/reminder/:id/show/edit", ReminderLive.Show, :edit
   end
+en
+
+  scope "/", RemindMeWeb do
+    pipe_through :browser
+
+    get "/", PageController, :home
+    live_session :reminders, on_mount:[
+  {RemindMeWeb.UserAuth, :ensure_authenticated}
+] do
+    live "/reminder", ReminderLive.Index, :index
+    live "/reminder/:id", ReminderLive.Show, :show
+  end
+end
 
   # Other scopes may use custom stacks.
   # scope "/api", RemindMeWeb do
