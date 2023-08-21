@@ -5,7 +5,7 @@ defmodule RemindMe.Repo.Migrations.CreateReminder do
     create table(:reminder) do
       add :title, :text
       add :content, :text
-      add :remind_date, :utc_datetime
+      add :remind_date, :date
       add :all_day, :boolean, default: false
 
       timestamps()

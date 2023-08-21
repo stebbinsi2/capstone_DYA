@@ -5,7 +5,7 @@ defmodule RemindMe.Reminders.Reminder do
   schema "reminder" do
     field :title, :string
     field :content, :string
-    field :remind_date, :utc_datetime
+    field :remind_date, :date
 
     belongs_to :user, RemindMe.Accounts.User
 
@@ -15,7 +15,7 @@ defmodule RemindMe.Reminders.Reminder do
   @doc false
   def changeset(reminder, attrs) do
     reminder
-    |> cast(attrs, [:content, :user_id])
+    |> cast(attrs, [:content, :user_id, :title, :remind_date])
     |> validate_required([:content])
   end
 end

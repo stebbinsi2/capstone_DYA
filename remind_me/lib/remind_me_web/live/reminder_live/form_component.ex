@@ -19,8 +19,11 @@ defmodule RemindMeWeb.ReminderLive.FormComponent do
         phx-change="validate"
         phx-submit="save"
       >
+        <.input field={@form[:title]} type="text" label="Title" />
         <.input field={@form[:content]} type="text" label="Content" />
+        <.input field={@form[:remind_date]} type="date" label="Due Date" />
         <:actions>
+        <.input field={@form[:user_id]} type="hidden" value={@current_user.id} />
           <.button phx-disable-with="Saving...">Save Reminder</.button>
         </:actions>
       </.simple_form>

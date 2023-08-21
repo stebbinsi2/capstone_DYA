@@ -9,7 +9,9 @@
 </.header>
 
 <.list>
+  <:item title="Title"><%= @reminder.title %></:item>
   <:item title="Content"><%= @reminder.content %></:item>
+  <:item title="Due Date"><%= @reminder.remind_date %></:item>
 </.list>
 
 <.back navigate={~p"/reminder"}>Back to reminder</.back>
@@ -22,5 +24,6 @@
     action={@live_action}
     reminder={@reminder}
     patch={~p"/reminder/#{@reminder}"}
+    current_user={@current_user}
   />
 </.modal>
