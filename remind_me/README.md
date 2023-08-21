@@ -30,10 +30,9 @@ User {
 Reminders {
     string title
     text content
-    date published_on
+    date remind_date
     boolean visibility
 }
-
 
 
 User |O--O{ Reminders: ""
