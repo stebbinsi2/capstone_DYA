@@ -27,7 +27,7 @@ User {
   naive_datetime confirmed_at
 }
 
-Reminder {
+Reminders {
     string title
     text content
     date published_on
