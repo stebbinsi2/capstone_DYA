@@ -29,6 +29,7 @@
   </:action>
 </.table>
 
+
 <.modal :if={@live_action in [:new, :edit]} id="reminder-modal" show on_cancel={JS.patch(~p"/reminder")}>
   <.live_component
     module={RemindMeWeb.ReminderLive.FormComponent}
@@ -37,5 +38,6 @@
     action={@live_action}
     reminder={@reminder}
     patch={~p"/reminder"}
+    current_user={@current_user}
   />
 </.modal>
