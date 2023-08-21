@@ -5,7 +5,7 @@ defmodule RemindMe.Reminders.Reminder do
   schema "reminder" do
     field :title, :string
     field :content, :string
-    field :remind_date, :utc_datetime
+    field :remind_date, :date
 
     belongs_to :user, RemindMe.Accounts.User
 
