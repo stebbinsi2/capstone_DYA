@@ -1,0 +1,41 @@
+<.header>
+  Listing Reminder
+  <:actions>
+    <.link patch={~p"/reminder/new"}>
+      <.button>New Reminder</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="reminder"
+  rows={@streams.reminder_collection}
+  row_click={fn {_id, reminder} -> JS.navigate(~p"/reminder/#{reminder}") end}
+>
+  <:col :let={{_id, reminder}} label="Content"><%= reminder.content %></:col>
+  <:action :let={{_id, reminder}}>
+    <div class="sr-only">
+      <.link navigate={~p"/reminder/#{reminder}"}>Show</.link>
+    </div>
+    <.link patch={~p"/reminder/#{reminder}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, reminder}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: reminder.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="reminder-modal" show on_cancel={JS.patch(~p"/reminder")}>
+  <.live_component
+    module={RemindMeWeb.ReminderLive.FormComponent}
+    id={@reminder.id || :new}
+    title={@page_title}
+    action={@live_action}
+    reminder={@reminder}
+    patch={~p"/reminder"}
+  />
+</.modal>
