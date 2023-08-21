@@ -15,7 +15,7 @@ defmodule RemindMe.Reminders.Reminder do
   @doc false
   def changeset(reminder, attrs) do
     reminder
-    |> cast(attrs, [:content, :user_id])
+    |> cast(attrs, [:content, :user_id, :title, :remind_date])
     |> validate_required([:content])
   end
 end
