@@ -3,8 +3,13 @@ defmodule RemindMe.Reminders.Reminder do
   import Ecto.Changeset
 
   schema "reminder" do
+    field :title, :string
     field :content, :string
+    field :remind_date, :utc_datetime
+    
     belongs_to :user, RemindMe.Accounts.User
+
+    has_one :user, RemindMe.Accounts.User
     timestamps()
   end
 
