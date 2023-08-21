@@ -16,3 +16,25 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Docs: https://hexdocs.pm/phoenix
   * Forum: https://elixirforum.com/c/phoenix-forum
   * Source: https://github.com/phoenixframework/phoenix
+
+```mermaid
+erDiagram
+User {
+  string username
+  string email
+  string password
+  string hashed_password
+  naive_datetime confirmed_at
+}
+
+Reminder {
+    string title
+    text content
+    date published_on
+    boolean visibility
+}
+
+
+
+User |O--O{ Reminders: ""
+```
