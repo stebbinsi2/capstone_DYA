@@ -6,7 +6,7 @@ defmodule RemindMeWeb.ReminderLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :reminder_collection, Reminders.list_reminder())}
+    {:ok, stream(socket, :reminder_collection, Reminders.list_reminder(socket.assigns.current_user))}
   end
 
   @impl true
