@@ -7,6 +7,7 @@ defmodule RemindMe.Reminders do
   alias RemindMe.Repo
 
   alias RemindMe.Reminders.Reminder
+  alias RemindMe.Accounts.User
 
   @doc """
   Returns the list of reminder.
@@ -17,8 +18,9 @@ defmodule RemindMe.Reminders do
       [%Reminder{}, ...]
 
   """
-  def list_reminder do
-    Repo.all(Reminder)
+  def list_reminder(user) do
+    from(r in Reminder, where: r.user_id == ^user.id, order_by: [asc: r.title])
+    |> Repo.all()
   end
 
   @doc """
