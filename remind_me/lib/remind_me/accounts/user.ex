@@ -9,6 +9,8 @@ defmodule RemindMe.Accounts.User do
     field :confirmed_at, :naive_datetime
     field :subscribed, :boolean, default: false
 
+    has_many :reminders, RemindMe.Reminders.Reminder
+
     timestamps()
   end
 
