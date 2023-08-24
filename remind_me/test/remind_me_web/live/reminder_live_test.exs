@@ -3,6 +3,7 @@ defmodule RemindMeWeb.ReminderLiveTest do
 
   import Phoenix.LiveViewTest
   import RemindMe.RemindersFixtures
+  import RemindMe.AccountsFixtures
 
   @create_attrs %{content: "some content"}
   @update_attrs %{content: "some updated content"}
@@ -14,9 +15,9 @@ defmodule RemindMeWeb.ReminderLiveTest do
   end
 
   describe "Index" do
-    setup [:create_reminder]
-
-    test "lists all reminder", %{conn: conn, reminder: reminder} do
+    test "lists all reminder", %{conn: conn} do
+      user = user_fixture()
+      reminder = reminder_fixture(user_id: user.id)
       {:ok, _index_live, html} = live(conn, ~p"/reminder")
 
       assert html =~ "Listing Reminder"
@@ -24,6 +25,9 @@ defmodule RemindMeWeb.ReminderLiveTest do
     end
 
     test "saves new reminder", %{conn: conn} do
+      user = user_fixture()
+      conn = conn |> log_in_user(user)
+
       {:ok, index_live, _html} = live(conn, ~p"/reminder")
 
       assert index_live |> element("a", "New Reminder") |> render_click() =~
@@ -46,7 +50,11 @@ defmodule RemindMeWeb.ReminderLiveTest do
       assert html =~ "some content"
     end
 
-    test "updates reminder in listing", %{conn: conn, reminder: reminder} do
+    test "updates reminder in listing", %{conn: conn} do
+      user = user_fixture()
+      conn = conn |> log_in_user(user)
+      reminder = reminder_fixture(user_id: user.id)
+
       {:ok, index_live, _html} = live(conn, ~p"/reminder")
 
       assert index_live |> element("#reminder-#{reminder.id} a", "Edit") |> render_click() =~
@@ -69,7 +77,11 @@ defmodule RemindMeWeb.ReminderLiveTest do
       assert html =~ "some updated content"
     end
 
-    test "deletes reminder in listing", %{conn: conn, reminder: reminder} do
+    test "deletes reminder in listing", %{conn: conn} do
+      user = user_fixture()
+      reminder = reminder_fixture(user_id: user.id)
+      conn = log_in_user(conn, user)
+
       {:ok, index_live, _html} = live(conn, ~p"/reminder")
 
       assert index_live |> element("#reminder-#{reminder.id} a", "Delete") |> render_click()
