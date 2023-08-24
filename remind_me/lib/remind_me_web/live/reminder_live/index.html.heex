@@ -1,9 +1,11 @@
 <.header>
   Listing Reminder
   <:actions>
-    <.link patch={~p"/reminder/new"}>
+   <%= if assigns[:current_user] do %>
+    <.link navigate={~p"/reminder/new"}>
       <.button>New Reminder</.button>
     </.link>
+    <% end %>
   </:actions>
 </.header>
 
@@ -19,7 +21,7 @@
     <div class="sr-only">
       <.link navigate={~p"/reminder/#{reminder}"}>Show</.link>
     </div>
-    <.link patch={~p"/reminder/#{reminder}/edit"}>Edit</.link>
+    <.link navigate={~p"/reminder/#{reminder}/edit"}>Edit</.link>
   </:action>
   <:action :let={{id, reminder}}>
     <.link
