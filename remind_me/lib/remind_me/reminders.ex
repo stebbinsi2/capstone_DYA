@@ -23,6 +23,21 @@ defmodule RemindMe.Reminders do
     |> Repo.all()
   end
 
+  def remind_date_messages(reminder, user) do
+    from(r in Reminder,
+      where: r.remind_date == ^reminder.remind_date,
+      where: r.user_id == ^user.id,
+      where: r.subscribed == true,
+      order_by: [asc: r.title]
+    )
+    |> Repo.all()
+  end
+
+  def subscriber_emails(user) do
+    from(r in Reminder, where: r.user_id == ^user.id, where: r.subscribed == true, select: r.email)
+    |> Repo.all()
+  end
+
   @doc """
   Gets a single reminder.
 
