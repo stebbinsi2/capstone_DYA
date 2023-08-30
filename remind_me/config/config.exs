@@ -10,6 +10,11 @@ import Config
 config :remind_me,
   ecto_repos: [RemindMe.Repo]
 
+config :remind_me, Oban,
+  repo: RemindMe.Repo,
+  plugins: [Oban.Plugins.Pruner],
+  queues: [default: 10]
+
 # Configures the endpoint
 config :remind_me, RemindMeWeb.Endpoint,
   url: [host: "localhost"],
