@@ -1,8 +1,8 @@
-defmodule RemindMe.Repo.Migrations.AddSubscribedToUsers do
+defmodule RemindMe.Repo.Migrations.AddSubscribedToReminders do
   use Ecto.Migration
 
   def change do
-    alter table(:users) do
+    alter table(:reminder) do
       add(:subscribed, :boolean, default: false)
     end
   end
