@@ -17,9 +17,10 @@ defmodule RemindMe.Application do
       # Start Finch
       {Finch, name: RemindMe.Finch},
       # Start the Endpoint (http/https)
-      RemindMeWeb.Endpoint
+      RemindMeWeb.Endpoint,
       # Start a worker by calling: RemindMe.Worker.start_link(arg)
       # {RemindMe.Worker, arg}
+      {Oban, Application.fetch_env!(:remind_me, Oban)}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
