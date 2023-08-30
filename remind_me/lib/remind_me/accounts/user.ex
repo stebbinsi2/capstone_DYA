@@ -7,7 +7,6 @@ defmodule RemindMe.Accounts.User do
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
-    field :subscribed, :boolean, default: false
 
     has_many :reminders, RemindMe.Reminders.Reminder
 
@@ -39,7 +38,7 @@ defmodule RemindMe.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password, :subscribed])
+    |> cast(attrs, [:email, :password])
     |> validate_email(opts)
     |> validate_password(opts)
   end
